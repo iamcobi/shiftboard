@@ -2,6 +2,12 @@
 
 Employee availability and automatic shift scheduling, with manager approvals, staffing rules, and weekly hour caps.
 
+## Start on Windows
+
+Double-click `start shiftboard.bat`. It checks dependencies, starts the local server, and opens it in your default browser. The default address is `http://127.0.0.1:5173`; if that port is busy, it uses the next available port. Keep the launcher window open while using Shiftboard; press Ctrl+C to stop it.
+
+Install Node.js LTS and Bun first. If `.env` is missing, the launcher creates it from `.env.example` and opens it in Notepad so you can enter your Supabase settings before launching again.
+
 ## Development
 
 ```sh

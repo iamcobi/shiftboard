@@ -15,6 +15,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { rolesQuery } from "@/components/RolesEditor";
 import { DefaultAvailability } from "@/components/DefaultAvailability";
 import { employeesQuery } from "@/lib/queries";
+import { SampleAvailability } from "@/components/SampleAvailability";
 
 export const Route = createFileRoute("/_authenticated/employees")({
   head: () => ({ meta: [{ title: "Employees — Shiftboard" }, { name: "description", content: "Manage your team." }] }),
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/_authenticated/employees")({
 });
 
 function EmployeesPage() {
+  const { settings } = Route.useRouteContext();
   const qc = useQueryClient();
   const { data: emps = [] } = useQuery(employeesQuery);
   const { data: roles = [] } = useQuery(rolesQuery);
@@ -56,6 +58,8 @@ function EmployeesPage() {
         sub={`${emps.filter((e) => e.active).length} active · ${ft} full-time · ${emps.filter((e) => e.active).length - ft} part-time`}
         actions={<AddEmployee roles={roles} onDone={refresh} />}
       />
+      <SampleAvailability employees={emps} open={settings?.open_hour ?? 9} close={settings?.close_hour ?? 21}
+        onSaved={() => qc.invalidateQueries({ queryKey: ["default"] })} />
       <div className="mb-4 flex flex-wrap gap-2">
         <Input placeholder="Search name or email" className="max-w-xs" value={q} onChange={(e) => setQ(e.target.value)} />
         <Select value={roleFilter} onValueChange={setRoleFilter}>

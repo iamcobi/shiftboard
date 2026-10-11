@@ -19,6 +19,8 @@ Copy `.env.example` to `.env` and configure your Supabase project. The database 
 
 ## Validation and production
 
+For the demo team, Employees → **Vary sample worker availability** updates the unclaimed sample workers' defaults with different free-time windows. Regenerate the draft afterward. If a sample week already has submitted availability, a database administrator can run `scripts/vary-sample-availability.sql` to update only unclaimed sample workers in current/future unpublished weeks. Real accounts and published weeks are excluded.
+
 ```sh
 bun run test
 bun run build
